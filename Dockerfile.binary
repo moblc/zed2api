@@ -1,0 +1,20 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    libstdc++6 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY dist/zed2api /app/zed2api
+COPY dist/accounts.example.json /app/accounts.example.json
+
+RUN chmod +x /app/zed2api
+
+EXPOSE 8000
+VOLUME ["/app/data"]
+
+ENV ZED2API_PORT=8000
+
+CMD ["/bin/sh", "-c", "cp -n /app/accounts.example.json /app/data/accounts.json 2>/dev/null || true; cd /app/data && /app/zed2api serve ${ZED2API_PORT}"]
