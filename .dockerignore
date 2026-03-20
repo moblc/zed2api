@@ -3,5 +3,4 @@
 node_modules
 webui/node_modules
 zig-out
-dist
 data
