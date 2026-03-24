@@ -1,0 +1,20 @@
+{
+  "name": "zed2api",
+  "version": "1.0.0",
+  "description": "Zed LLM API Proxy - OpenAI/Anthropic compatible local server",
+  "main": "index.js",
+  "bin": {
+    "zed2api": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js serve"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "https-proxy-agent": "^7.0.2",
+    "open": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

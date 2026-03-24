@@ -1,11 +1,7 @@
-.zig-cache/
-zig-out/
-zig-out-*/
 accounts.json
 github_accounts.json
-*.exe
-*.pdb
 zed2api_*.json
+node_modules/
 webui/node_modules/
 webui/dist/
 debug_*.png
