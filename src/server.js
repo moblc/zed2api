@@ -122,8 +122,8 @@ async function run(port) {
       res.send(data);
     } catch (e) { res.status(502).json({ error: e.message }); }
   });
-  app.listen(port, '127.0.0.1', () => {
-    console.log(`[zed2api] listening on http://127.0.0.1:${port}`);
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`[zed2api] listening on http://0.0.0.0:${port}`);
   });
 }
 
