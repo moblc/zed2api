@@ -68,13 +68,44 @@ export ANTHROPIC_AUTH_TOKEN=zed2api
 claude
 ```
 
-## 代理设置
-
-设置 `HTTPS_PROXY` 环境变量即可，服务器启动时自动检测（Windows 下也会读取系统注册表）。
+## Docker 部署
 
 ```bash
+docker run -d \
+  --name zed2api \
+  -p 3000:3000 \
+  -v /root/zed2api:/app/data \
+  supray/zed2api:latest
+```
+
+访问 http://服务器IP:3000 进入 Web 管理界面。
+
+> **无 GUI 服务器添加账号**：OAuth 回调必须打到本机 localhost，请在本地有浏览器的机器上运行 `node index.js login`，再将生成的 `accounts.json` 上传到服务器挂载目录。
+
+## 代理设置
+
+支持 HTTP / HTTPS / SOCKS5 代理，含账号密码认证。通过环境变量配置，Windows 下还会自动读取系统代理。
+
+```bash
+# 无认证
 export HTTPS_PROXY=http://127.0.0.1:7890
+# 带账号密码
+export HTTPS_PROXY=http://user:password@127.0.0.1:7890
+# SOCKS5
+export HTTPS_PROXY=socks5://user:password@127.0.0.1:1080
+
 node index.js serve
+```
+
+Docker 中使用代理：
+
+```bash
+docker run -d \
+  --name zed2api \
+  -p 3000:3000 \
+  -v /root/zed2api:/app/data \
+  -e HTTPS_PROXY=http://user:password@192.168.1.1:7890 \
+  supray/zed2api:latest
 ```
 
 ## 项目结构
