@@ -1,8 +1,7 @@
 'use strict';
 const { execSync } = require('child_process');
 
-let proxyHost = null;
-let proxyPort = 0;
+let proxyUrl = null;
 let initialized = false;
 
 function init() {
@@ -14,10 +13,9 @@ function init() {
     const val = process.env[name];
     if (!val) continue;
     try {
-      const url = new URL(val);
-      proxyHost = url.hostname;
-      proxyPort = parseInt(url.port) || 7890;
-      console.log(`[zed2api] proxy: ${proxyHost}:${proxyPort}`);
+      new URL(val);
+      proxyUrl = val;
+      console.log(`[zed2api] proxy: ${val}`);
       return;
     } catch (_) {}
   }
@@ -35,16 +33,13 @@ function init() {
       );
       const m = r2.match(/ProxyServer\s+REG_SZ\s+(\S+)/);
       if (m) {
-        const parts = m[1].split(':');
-        proxyHost = parts[0];
-        proxyPort = parseInt(parts[1]) || 7890;
-        console.log(`[zed2api] proxy (system): ${proxyHost}:${proxyPort}`);
+        proxyUrl = `http://${m[1]}`;
+        console.log(`[zed2api] proxy (system): ${proxyUrl}`);
       }
     } catch (_) {}
   }
 }
 
-function getHost() { return proxyHost; }
-function getPort() { return proxyPort; }
+function getUrl() { return proxyUrl; }
 
-module.exports = { init, getHost, getPort };
+module.exports = { init, getUrl };
