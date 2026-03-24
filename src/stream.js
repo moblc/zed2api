@@ -9,9 +9,9 @@ const proxy = require('./proxy');
 const ZED_VERSION = '0.222.4+stable.147.b385025df963c9e8c3f74cc4dadb1c4b29b3c6f0';
 
 function getAgent() {
-  const host = proxy.getHost();
-  if (!host) return undefined;
-  return new HttpsProxyAgent(`http://${host}:${proxy.getPort()}`);
+  const url = proxy.getUrl();
+  if (!url) return undefined;
+  return new HttpsProxyAgent(url);
 }
 
 // handleStreamProxy with account failover
