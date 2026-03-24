@@ -24,9 +24,9 @@ async function run(port) {
 
   console.log(`[zed2api] http://127.0.0.1:${port}`);
   console.log(`[zed2api] ${accountMgr.list.length} account(s) loaded`);
-  const proxyHost = proxy.getHost();
-  if (proxyHost) {
-    console.log(`[zed2api] proxy: ${proxyHost}:${proxy.getPort()}`);
+  const proxyUrl = proxy.getUrl();
+  if (proxyUrl) {
+    console.log(`[zed2api] proxy: ${proxyUrl}`);
   } else {
     console.log('[zed2api] proxy: none (set HTTPS_PROXY to use)');
   }
